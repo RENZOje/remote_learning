@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
-from .models import *
+from backend.models import *
 from itertools import chain
 from operator import attrgetter
 

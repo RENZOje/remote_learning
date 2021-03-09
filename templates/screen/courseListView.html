@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for course in course_list %}
+        <a href="{{ course.get_absolute_url }}">{% include 'components/cardCourse.html' %}</a>
+        <a href="{{ course.get_absolute_url }}">{% include 'components/cardCourse.html' %}</a>
+        <a href="{{ course.get_absolute_url }}">{% include 'components/cardCourse.html' %}</a>
+    {% endfor %}
+
+{% endblock %}

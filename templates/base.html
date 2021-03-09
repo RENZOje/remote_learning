@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+
+    <meta charset="UTF-8"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title> Luxury - Dream Home At Your Doorsteps </title>
+    <!-- Windows 8 Tiles -->
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <!-- ****** faviconit.com favicons ****** -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/for_template/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/for_template/bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/for_template/animate.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/for_template/picto-foundry-emotions.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/for_template/picto-foundry-household.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/for_template/picto-foundry-shopping-finance.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/for_template/picto-foundry-general.css' %}"/>
+
+    <link href="{% static 'css/for_template/font-awesome.min.css" rel="stylesheet' %}"/>
+</head>
+<body>
+<div class="pushWrapper">
+    <!-- Header (shown on mobile only) -->
+    <header class="pageHeader">
+        <!-- Menu Trigger -->
+        <button class="menu-trigger">
+            <span class="lines"></span>
+        </button>
+
+        <!-- Logo -->
+        <a class="headerLogo smoothScroll" href="#">
+            <i class=" step icon-diamond size-26"></i>
+            <span class="text">Luxury</span>
+        </a>
+    </header>
+
+    <!-- Sidebar -->
+    {% include 'components/sidebar.html' %}
+
+    <!-- Main -->
+    <main>
+
+
+        <section class="section-intro" id="section-intro" data-stellar-background-ratio="0.5"
+                 data-stellar-vertical-offset="0">
+
+            <a class="LC-logo" href="#/">
+                <i class="icon-LClogo"></i>
+                <!-- span class="text">Luxury</span> -->
+            </a>
+
+            <div class="content">
+                <div class="container-template" >
+                    <h1>
+                        <span>
+                            title
+                        </span>
+                    </h1>
+                </div>
+            </div>
+
+        </section>
+        <section class="timeline-part" id="timeline-part">
+
+            <div class="content">
+                <div class="container-template">
+
+                    {% block content %}
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                        <div>
+                            <h1>Main</h1>
+                        </div>
+                    {% endblock %}
+
+                </div>
+            </div>
+
+        </section>
+        <!-- ONLINE STATISTICS SECTION -->
+
+
+        {% include 'components/footer.html' %}
+    </main>
+
+</div>
+<script type='text/javascript' src='{% static 'js/for_template/jquery.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/jquery-migrate.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/jquery.form.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/jquery.mobile.custom.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/modernizr.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/response.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/swiper.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/waypoints.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/jquery.stellar.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/module.js' %}'></script>
+<script type='text/javascript' src='{% static 'js/for_template/bootstrap.min.js' %}'></script>
+<script src='{% static 'js/for_template/wow.min.js' %}"></script>
+		<script>
+		new WOW().init();
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,16 @@
+{% load static %}
+<div class="card" >
+    <div class="card-body">
+        <img class="card-img-overlay "
+             src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" alt="">
+        <h5 class="card-title">{{ course.title }}</h5>
+        <span class="card-text" style="padding: 10px">
+{{ course.description }}
+        </span>
+    </div>
+
+    <div class="card-body" style="margin: 10px">
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
+</div>

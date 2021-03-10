@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from slugify import unique_slugify
 from itertools import chain
 from operator import attrgetter
 
@@ -41,6 +42,10 @@ class Student(models.Model):
     def __str__(self):
         return f'Student: {self.firstName} {self.lastName} Group: '
 
+    def save(self, *args, **kwargs):
+        self.slug = '-'.join((unique_slugify(self.firstName), unique_slugify(self.lastName)))
+        super(Student, self).save(*args, **kwargs)
+
 
 class Course(models.Model):
     teachers = models.ManyToManyField(Teacher, blank=True)
@@ -48,6 +53,10 @@ class Course(models.Model):
     title = models.CharField(max_length=250, blank=True)
     description = models.TextField(blank=True)
     slug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        self.slug = unique_slugify(self.title)
+        super(Course, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'Course: {self.title} Created: {self.teachers}'
@@ -75,6 +84,14 @@ class Quiz(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     point = models.IntegerField(blank=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    slug = models.SlugField(blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = unique_slugify(self.title)
+        super(Quiz, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('quizDetail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return f'{self.title}'
@@ -85,6 +102,14 @@ class Article(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     description = models.TextField(default='')
+    slug = models.SlugField(blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = unique_slugify(self.title)
+        super(Article, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('articleDetail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return f'{self.title}'

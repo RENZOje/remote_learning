@@ -59,7 +59,7 @@
                 <div class="dropdown-content">
 
                     {% for item in section.return_article %}
-                        <a href="#">{{ item.title }}</a>
+                        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                     {% endfor %}
                 </div>
             </div>

@@ -29,3 +29,12 @@ class CourseListView(ListView):
 class CourseDetailView(DetailView):
     model = Course
     template_name = 'screen/courseDetailView.html'
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'screen/taskDetailView.html'
+
+class QuizDetailView(DetailView):
+    model = Quiz
+    template_name = 'screen/taskDetailView.html'

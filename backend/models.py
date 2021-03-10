@@ -6,7 +6,7 @@ from django.urls import reverse
 # Create your models here.
 class Group_custom(models.Model):
     name = models.CharField(max_length=10, blank=True)
-    link = models.SlugField()
+    slug = models.SlugField()
 
     def __str__(self):
         return f'Group: {self.name}'
@@ -19,24 +19,26 @@ class Teacher(models.Model):
     middleName = models.CharField(max_length=50, blank=True)
     email = models.EmailField(max_length=50, blank=True)
     phone = models.CharField(max_length=50, blank=True)
-    link = models.SlugField()
+    slug = models.SlugField()
 
     def __str__(self):
         return f'Teacher: {self.firstName} {self.lastName}'
 
 
 class Student(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     firstName = models.CharField(max_length=50, blank=True)
     lastName = models.CharField(max_length=50, blank=True)
     middleName = models.CharField(max_length=50, blank=True)
     email = models.EmailField(max_length=50, blank=True)
     phone = models.CharField(max_length=50, blank=True)
-    group = models.ForeignKey(Group_custom, on_delete=models.SET_NULL, null=True)
-    link = models.SlugField()
+    about = models.CharField(max_length=250, blank=True)
+    telegram_link = models.CharField(max_length=100, blank=True)
+    group = models.ForeignKey(Group_custom, on_delete=models.SET_NULL, null=True, blank=True)
+    slug = models.SlugField()
 
     def __str__(self):
-        return f'Student: {self.firstName} {self.lastName} Group: {self.group.name}'
+        return f'Student: {self.firstName} {self.lastName} Group: '
 
 
 class Course(models.Model):

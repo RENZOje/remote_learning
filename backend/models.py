@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-
+from itertools import chain
+from operator import attrgetter
 
 # Create your models here.
 class Group_custom(models.Model):
@@ -59,6 +60,11 @@ class Section(models.Model):
     title = models.CharField(max_length=250, blank=True)
     description = models.TextField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    def return_article(self):
+        list_item = sorted(chain(self.article_set.all(), self.quiz_set.all()),
+                     key=attrgetter('createdAt'))
+        return list_item
 
     def __str__(self):
         return f'Section: {self.title} Course: {self.course.title}'

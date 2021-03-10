@@ -5,6 +5,7 @@ from backend.models import *
 from itertools import chain
 from operator import attrgetter
 
+
 # Create your views here.
 def index(request):
     # course = Course.objects.all()[0]
@@ -16,11 +17,9 @@ def index(request):
     return render(request, 'base.html')
 
 
-
 class CourseListView(ListView):
     model = Course
     template_name = 'screen/courseListView.html'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

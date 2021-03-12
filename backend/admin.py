@@ -10,6 +10,8 @@ admin.site.register(Section)
 admin.site.register(Student)
 admin.site.register(Course)
 admin.site.register(Group_custom)
+admin.site.register(UploadTask)
+admin.site.register(UploadAnswerTask)
 
 
 

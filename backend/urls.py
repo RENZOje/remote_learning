@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('article/<slug:slug>/', ArticleDetailView.as_view(), name='articleDetail'),
     path('quiz/<slug:slug>/', QuizDetailView.as_view(), name='quizDetail'),
+    path('task/<slug:slug>/', TaskDetailView.as_view(), name='taskDetail'),
 
     path('profile/', profile, name='profile'),
     path('login/', loginStudent, name='loginStudent'),

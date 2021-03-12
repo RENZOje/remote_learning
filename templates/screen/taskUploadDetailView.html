@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    Title: {{ object.title }}
+    <hr>
+    Section: {{ object.section.title }}
+    <hr>
+    Description: {{ object.description }}
+    <hr>
+    Pdf: <a href="{{ object.pdf_task.url }}" target="_blank">Task</a>
+    {% if not answered %}
+        <h2>Submit answer</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <button type="submit" class="btn btn-primary">Submit answer</button>
+        </form>
+
+    {% else %}
+        <h2> U already answered on this task</h2>
+        <a href="{{ answered.pdf_answer.url }}">Your answer</a>
+    {% endif %}
+
+
+
+{% endblock %}

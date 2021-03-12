@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'ckeditor_uploader',
+    'crispy_forms',
     'quiz',
     'backend'
 ]
@@ -202,3 +203,5 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

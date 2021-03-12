@@ -4,6 +4,8 @@ from django.urls import reverse
 from slugify import unique_slugify
 from itertools import chain
 from operator import attrgetter
+from django.core.validators import FileExtensionValidator
+
 
 # Create your models here.
 class Group_custom(models.Model):
@@ -71,8 +73,8 @@ class Section(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def return_article(self):
-        list_item = sorted(chain(self.article_set.all(), self.quiz_set.all()),
-                     key=attrgetter('createdAt'))
+        list_item = sorted(chain(self.uploadtask_set.all(), self.article_set.all(), self.quiz_set.all()),
+                           key=attrgetter('createdAt'))
         return list_item
 
     def __str__(self):
@@ -113,3 +115,33 @@ class Article(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+
+class UploadTask(models.Model):
+    title = models.CharField(max_length=250, blank=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE)
+    description = models.TextField(default='')
+    slug = models.SlugField(blank=True)
+    pdf_task = models.FileField(upload_to='foo/',
+                                validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
+
+    def save(self, *args, **kwargs):
+        self.slug = unique_slugify(self.title)
+        super(UploadTask, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('taskDetail', kwargs={'slug': self.slug})
+
+    def __str__(self):
+        return f'{self.title}'
+
+
+class UploadAnswerTask(models.Model):
+    answer = models.ForeignKey(UploadTask, on_delete=models.CASCADE, blank=True)
+    studentUpload = models.ForeignKey(Student, on_delete=models.CASCADE, blank=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField(default='', blank=True)
+    pdf_answer = models.FileField(upload_to='pdfAnswer/',
+                                  validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
+

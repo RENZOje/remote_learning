@@ -13,14 +13,34 @@
         <h2>Submit answer</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form|crispy }}
+
+            {% for field in form %}
+                {#                <div class="fieldWrapper">#}
+                {#                    {{ field.errors }}#}
+                {#                    {% if not field.html_name == "answer" and not field.html_name == "studentUpload"%}#}
+                {#                        {{ field.label_tag }} {{ field }}#}
+                {#                    {% endif %}#}
+                {##}
+                {#                </div>#}
+                {% if not field.html_name == "answer" and not field.html_name == "studentUpload" %}
+
+                    {{ field|as_crispy_field }}
+
+                {% else %}
+                    <div hidden>
+                        {{ field }}
+                    </div>
+                {% endif %}
+
+
+            {% endfor %}
 
             <button type="submit" class="btn btn-primary">Submit answer</button>
         </form>
 
     {% else %}
         <h2> U already answered on this task</h2>
-        <a href="{{ answered.pdf_answer.url }}">Your answer</a>
+        <a href="{{ answered.pdf_answer.url }}" target="_blank">Your answer</a>
     {% endif %}
 
 

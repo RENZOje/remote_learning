@@ -51,8 +51,8 @@ class TaskDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         query_object = UploadAnswerTask.objects.filter(studentUpload_id=self.request.user.student.id).filter(
             answer__id=self.object.id)
-        if query_object:
-            context['answered'] = query_object
+        if len(query_object) != 0:
+            context['answered'] = query_object[0]
             return context
         else:
             context['form'] = UploadAnswerTaskForm(
@@ -62,7 +62,7 @@ class TaskDetailView(DetailView):
 
     def post(self, request, *args, **kwargs):
         form = UploadAnswerTaskForm(request.POST, request.FILES)
-
         if form.is_valid():
+            print(form.cleaned_data)
             form.save()
             return redirect('/')

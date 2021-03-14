@@ -17,7 +17,7 @@ from django import forms
 class UploadAnswerTaskForm(forms.ModelForm):
 	class Meta:
 		model = UploadAnswerTask
-		fields = ['comment','pdf_answer']
+		fields = ['comment','pdf_answer','studentUpload','answer']
 
 
 

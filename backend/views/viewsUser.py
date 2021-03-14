@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.contrib.auth.forms import UserCreationForm
@@ -6,13 +6,26 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from ..decorators import allowed_users
-from ..forms import CreateStudentForm
+from ..forms import CreateStudentForm, StudentForm
 from ..models import *
 
 
 @allowed_users(allowed_roles=['student'])
 def profile(request):
-    return render(request, 'screen/profileView.html')
+    student = get_object_or_404(Student, id=request.user.student.id)
+    form = StudentForm(instance=student)
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student, initial={'slug': student.slug})
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form}
+    return render(request, 'screen/studentFormView.html', context)
+
+
+class StudentDetailView(DetailView):
+    model = Student
+    template_name = 'screen/studentView.html'
 
 
 def registerStudent(request):

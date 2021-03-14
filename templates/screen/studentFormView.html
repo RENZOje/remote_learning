@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12" style="margin: 50px">
+                <div class="card_profile">
+                    <div class="card_profile-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar" style="margin: auto;">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin"
+                                         style="margin: auto">
+                                </div>
+                                <h5 class="user-name" style="margin: 10px">{{ request.user.student.firstName }} {{ request.user.student.lastName }}</h5>
+                                <h6 class="user-email">{{ request.user.student.email }} </h6>
+                            </div>
+                            <div class="about">
+                                <h5 class="mb-2 text-primary" style="margin: 10px">About</h5>
+                                <p>{{ request.user.student.about }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-9 col-sm-9 col-9">
+                <div class="card_profile">
+                    <div class="card_profile-body">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-left: 30px;">
+                                <h4 class="mb-3 text-primary" style="padding: 40px">Personal Details</h4>
+                            </div>
+
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
+                                    <div class="form-group" style="margin: auto">
+                                        {{ form|crispy }}
+
+                                        <button class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

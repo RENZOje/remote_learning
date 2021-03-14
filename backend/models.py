@@ -13,7 +13,7 @@ class Group_custom(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return f'Group: {self.name}'
+        return f'{self.name}'
 
 
 class Teacher(models.Model):
@@ -44,8 +44,12 @@ class Student(models.Model):
     def __str__(self):
         return f'Student: {self.firstName} {self.lastName} Group: '
 
+    def get_absolute_url(self):
+        return reverse('studentDetail', kwargs={'slug': self.slug})
+
     def save(self, *args, **kwargs):
-        self.slug = '-'.join((unique_slugify(self.firstName), unique_slugify(self.lastName)))
+        if not self.slug:
+            self.slug = '-'.join((unique_slugify(self.firstName), unique_slugify(self.lastName)))
         super(Student, self).save(*args, **kwargs)
 
 

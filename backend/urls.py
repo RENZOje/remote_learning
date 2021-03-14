@@ -14,4 +14,6 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('login/', loginStudent, name='loginStudent'),
     path('register/', registerStudent, name='registerStudent'),
+    path('profile/<slug:slug>/', StudentDetailView.as_view(), name='studentDetail'),
+
 ]

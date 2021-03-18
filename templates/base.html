@@ -23,6 +23,9 @@
 
     <link href="{% static 'css/for_template/font-awesome.min.css" rel="stylesheet' %}"/>
 </head>
+{% block scripts %}
+
+{% endblock %}
 <body>
 <div class="pushWrapper">
     <!-- Header (shown on mobile only) -->
@@ -55,7 +58,7 @@
             </a>
 
             <div class="content">
-                <div class="container-template" >
+                <div class="container-template">
                     <h1>
                         <span>
                             title
@@ -131,10 +134,10 @@
 <script type='text/javascript' src='{% static 'js/for_template/jquery.stellar.js' %}'></script>
 <script type='text/javascript' src='{% static 'js/for_template/module.js' %}'></script>
 <script type='text/javascript' src='{% static 'js/for_template/bootstrap.min.js' %}'></script>
-<script src='{% static 'js/for_template/wow.min.js' %}"></script>
-		<script>
-		new WOW().init();
-		</script>
+<script src='{% static 'js/for_template/wow.min.js' %}'></script>
+<script>
+    new WOW().init();
+</script>
 
-	</body>
+</body>
 </html>

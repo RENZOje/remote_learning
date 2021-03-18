@@ -13,6 +13,15 @@ admin.site.register(Group_custom)
 admin.site.register(UploadTask)
 admin.site.register(UploadAnswerTask)
 
+class AnswerInline(admin.TabularInline):
+    model = Answer
+
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [AnswerInline]
+
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Answer)
+admin.site.register(Result)
 
 
 class AtricleAdminForm(forms.ModelForm):

@@ -11,8 +11,7 @@
                             class="icon-reciept-1 size-24"></i><span class="text">Course</span></a>
                 </li>
                 <li>
-                    <a class="smoothScroll" href="#testimonials-part" title="Testimonial"><i
-                            class="step icon-thumbs-up size-24"></i><span class="text">Testimonial</span></a>
+                    <a class="smoothScroll" href="{% url 'profile' %}" title="Testimonial"><i class="bi bi-person"></i><span class="text">Profile</span></a>
                 </li>
                 <li>
                     <a class="smoothScroll" href="#featured-part" title="Top Featured"><i
@@ -31,12 +30,12 @@
                             class="step icon-light-bulb size-24"></i><span class="text">Important Tips</span></a>
                 </li>
                 <li>
-                    <a class="smoothScroll" href="#events-part" title="Upcoming Events"><i
-                            class="step icon-calendar-1 size-24 size"></i><span class="text">Upcoming Events</span></a>
+                    <a class="smoothScroll" href="{% url 'loginStudent' %}" title="Upcoming Events"><i
+                            class="step icon-calendar-1 size-24 size"></i><span class="text">Login</span></a>
                 </li>
                 <li>
-                    <a class="smoothScroll" href="#contact-form" title="Contact Form"><i
-                            class="step icon-envelope-1 size-34"></i><span class="text">Contact</span></a>
+                    <a class="smoothScroll" href="{% url 'logoutStudent' %}" title="Contact Form"><i
+                            class="step icon-envelope-1 size-34"></i><span class="text">Logout</span></a>
                 </li>
             </ul>
         </nav>

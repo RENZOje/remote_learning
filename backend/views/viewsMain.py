@@ -38,11 +38,6 @@ class ArticleDetailView(DetailView):
     template_name = 'screen/taskDetailView.html'
 
 
-class QuizDetailView(DetailView):
-    model = Quiz
-    template_name = 'screen/taskDetailView.html'
-
-
 class TaskDetailView(DetailView):
     model = UploadTask
     template_name = 'screen/taskUploadDetailView.html'

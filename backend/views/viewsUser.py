@@ -58,9 +58,13 @@ def loginStudent(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('mainView')
+                return redirect('homeView')
             else:
                 messages.info(request, 'Username OR password is incorrect')
 
         context = {}
         return render(request, 'screen/login.html', context)
+
+def logoutStudent(request):
+    logout(request)
+    return redirect('homeView')

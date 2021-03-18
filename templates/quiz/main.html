@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block scripts %}
-    <script src="{% static 'js/main.js' %}" defer></script>
+    <script type='text/javascript' src='{% static 'js/main_quiz.js' %}'></script>
 {% endblock %}
 
 
 {% block content %}
 
-    <!-- Modal -->
+
     <div class="modal fade" id="quizStartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -19,25 +19,44 @@
                     </button>
                 </div>
                 <div class="modal-body" id="modal-body-confirm">
+                    <div class="h4" style="color: #1b2021">
+                        Are you sure you want to start {{ object.title }} quiz?
+                    </div>
+                    <div class="text-muted">
+                        <ul>
+                            <li>Number of question: <b>{{ object.number_of_questions }}</b></li>
+                            <li>Time: <b>{{ object.time }}</b></li>
+                            <li>Score to pass: <b>{{ object.required_score_to_pass }}</b></li>
+                        </ul>
+
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                    <button type="button" id="start-button" class="btn btn-success">Yes</button>
+                    <a href="{{ object.get_absolute_url }}">
+                        <button type="button" id="start-button"
+                                class="btn btn-success">Yes
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <h1>Quiz List</h1>
+    <h1>Quiz {{ object.title }}</h1>
     <hr>
-    {% for object in object_list %}
-        <button class="btn btn-link modal-button" data-pk="{{ object.pk }}" data-quiz="{{ object.name }}"
-                data-question="{{ object.number_of_questions }}" data-difficulty="{{ object.difficulty }}"
-                data-time="{{ object.time }}" data-pass="{{ object.required_score_to_pass }}"
+    <h2>
+        Would you like to
+        <button class="btn btn-primary" data-pk="{{ object.pk }}"
+                data-quiz="{{ object.title }}"
+                data-question="{{ object.number_of_questions }}"
+                data-time="{{ object.time }}"
+                data-pass="{{ object.required_score_to_pass }}"
                 data-toggle="modal" data-target="#quizStartModal">
-            {{ object.name }}
+            Start {{ object.title }}
         </button>
-    {% endfor %}
+        ?
+    </h2>
 
 
 {% endblock %}

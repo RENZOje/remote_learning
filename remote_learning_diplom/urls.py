@@ -20,7 +20,6 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('quiz',include('quiz.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('backend.urls')),
 

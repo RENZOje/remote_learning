@@ -2,19 +2,22 @@
 {% load static %}
 
 
-
 {% block content %}
-    {{ object.title }}
+    <h3><b>{{ object.title }}</b></h3>
+    <p>Score to pass: {{ object.required_score_to_pass }} %</p>
     <form id="quiz-form" class="mt-3 mb-3">
-    {% csrf_token %}
-    <div id="quiz-box">
+        {% csrf_token %}
+        <div id="quiz-box">
 
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Save</button>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Send answer</button>
     </form>
+    <div id="score-box" class="h2"></div>
+    <div id="result-box"></div>
 {% endblock %}
 
 {% block scripts %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
     <script type='text/javascript' src='{% static 'js/for_template/jquery.js' %}'></script>
     <script type='text/javascript' src='{% static 'js/for_template/jquery.min.js' %}'></script>
     <script type='text/javascript' src='{% static 'js/quiz.js' %}'></script>

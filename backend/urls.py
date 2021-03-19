@@ -12,9 +12,10 @@ urlpatterns = [
     # path('quiz/<slug:slug>/', QuizDetailView.as_view(), name='quizDetail'),
     path('task/<slug:slug>/', TaskDetailView.as_view(), name='taskDetail'),
 
-    path('quiz/<slug:slug>/start', QuizDetailView.as_view(), name='quizDetail'),
+    path('quiz/<slug:slug>/start/', QuizDetailView.as_view(), name='quizDetail'),
     path('quiz/<slug:slug>/', quizView, name='quizDetailView'),
-    path('quiz/<slug:slug>/data', quizDataView, name='quizDataDetail'),
+    path('quiz/<slug:slug>/data/', quizDataView, name='quizDataDetail'),
+    path('quiz/<slug:slug>/save/', saveQuizView, name='saveQuizView'),
 
     path('profile/', profile, name='profile'),
     path('login/', loginStudent, name='loginStudent'),

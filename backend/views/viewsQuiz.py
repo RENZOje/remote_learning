@@ -35,3 +35,51 @@ def quizDataView(request, slug):
                'time': quiz.time}
 
     return JsonResponse(context)
+
+
+def saveQuizView(request, slug):
+    print(request.POST)
+    if request.is_ajax():
+        questions = []
+        data = request.POST
+        data_ = dict(data.lists())
+        data_.pop('csrfmiddlewaretoken')
+
+        for k in data_.keys():
+            question = Question.objects.get(text=k)
+            questions.append(question)
+        print(questions)
+
+        user = request.user
+        quiz = Quiz.objects.get(slug=slug)
+
+        score = 0
+        multiplier = 100 / quiz.number_of_questions
+        results = []
+        correctAnswer = None
+
+        for q in questions:
+            answerSelected = request.POST.get(str(q.text))
+            if answerSelected != '':
+                questionAnswer = Answer.objects.filter(question=q)
+                for a in questionAnswer:
+                    if answerSelected == a.text:
+                        if a.correct:
+                            score += 1
+                            correctAnswer = a.text
+                    else:
+                        if a.correct:
+                            correctAnswer = a.text
+                results.append({str(q): {'correctAnswer': correctAnswer}, 'answered': answerSelected})
+
+            else:
+                results.append({str(q): 'Not answered'})
+        score_ = score * multiplier
+        Result.objects.create(quiz=quiz, user=user, score=score_)
+
+        if score_ >= quiz.required_score_to_pass:
+            context = {'passed': True, 'score': round(score_, 2), 'results': results}
+            return JsonResponse(context)
+        else:
+            context = {'passed': False, 'score': round(score_, 2), 'results': results}
+            return JsonResponse(context)

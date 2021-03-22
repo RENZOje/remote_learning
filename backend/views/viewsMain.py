@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from backend.models import *
 from ..forms import UploadAnswerTaskForm
 from itertools import chain
@@ -19,7 +21,7 @@ def index(request):
     return render(request, 'base.html')
 
 
-class CourseListView(ListView):
+class CourseListView(LoginRequiredMixin,ListView):
     model = Course
     template_name = 'screen/courseListView.html'
 
@@ -28,12 +30,24 @@ class CourseListView(ListView):
         return context
 
 
-class CourseDetailView(DetailView):
+class CourseDetailView(LoginRequiredMixin,DetailView):
     model = Course
     template_name = 'screen/courseDetailView.html'
 
 
-class ArticleDetailView(DetailView):
+class CourseListSubscribeView(LoginRequiredMixin,ListView):
+    model = Course
+    template_name = 'screen/courseListView.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['course_list'] = Course.objects.filter(students__in=[self.request.user.student])
+        return context
+
+
+
+class ArticleDetailView(LoginRequiredMixin, DetailView):
     model = Article
     template_name = 'screen/taskDetailView.html'
 
@@ -47,7 +61,7 @@ def courseSubscribe(request, slug):
     return redirect('courseList')
 
 
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = UploadTask
     template_name = 'screen/taskUploadDetailView.html'
 

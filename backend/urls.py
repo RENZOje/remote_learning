@@ -7,14 +7,16 @@ urlpatterns = [
     path('', index, name='homeView'),
     path('course/', CourseListView.as_view(), name='courseList'),
     path('course/<slug:slug>/', CourseDetailView.as_view(), name='courseDetail'),
+    path('course/<slug:slug>/subscribe', courseSubscribe, name='courseSubscribe'),
+
 
     path('article/<slug:slug>/', ArticleDetailView.as_view(), name='articleDetail'),
     # path('quiz/<slug:slug>/', QuizDetailView.as_view(), name='quizDetail'),
     path('task/<slug:slug>/', TaskDetailView.as_view(), name='taskDetail'),
 
-    path('quiz/<slug:slug>/start/', QuizDetailView.as_view(), name='quizDetail'),
-    path('quiz/<slug:slug>/', quizView, name='quizDetailView'),
-    path('quiz/<slug:slug>/data/', quizDataView, name='quizDataDetail'),
+    path('quiz/<slug:slug>/start/', QuizDetailView.as_view(), name='quizDetailView'),
+    path('quiz/<slug:slug>/', quizView, name='quizDetail'), # quizDetailView
+    path('quiz/<slug:slug>/data/', quizDataView, name='quizDataDetail'), # quizDataDetail
     path('quiz/<slug:slug>/save/', saveQuizView, name='saveQuizView'),
 
     path('profile/', profile, name='profile'),

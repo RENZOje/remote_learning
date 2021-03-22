@@ -58,7 +58,7 @@
                 <button class="dropbtn">{{ section.title }}</button>
                 <div class="dropdown-content">
 
-                    {% for item in section.return_article %}
+                    {% for item in section.return_all_task %}
                         <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                     {% endfor %}
                 </div>

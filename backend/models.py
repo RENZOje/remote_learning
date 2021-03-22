@@ -61,7 +61,8 @@ class Course(models.Model):
     slug = models.SlugField()
 
     def save(self, *args, **kwargs):
-        self.slug = unique_slugify(self.title)
+        if not self.slug:
+            self.slug = unique_slugify(self.title)
         super(Course, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -76,13 +77,19 @@ class Section(models.Model):
     description = models.TextField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
-    def return_article(self):
+    def return_all_task(self):
         list_item = sorted(chain(self.uploadtask_set.all(), self.article_set.all(), self.quiz_set.all()),
                            key=attrgetter('createdAt'))
         return list_item
 
     def __str__(self):
         return f'Section: {self.title} Course: {self.course.title}'
+
+
+class Grade(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    amountPoint = models.IntegerField(default=0)
 
 
 class Quiz(models.Model):
@@ -142,7 +149,7 @@ class Result(models.Model):
     score = models.FloatField()
 
     def __str__(self):
-        return str(self.pk)
+        return f'Quiz: {self.quiz}, student - {self.user.first_name}'
 
 
 class Article(models.Model):

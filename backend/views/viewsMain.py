@@ -38,6 +38,15 @@ class ArticleDetailView(DetailView):
     template_name = 'screen/taskDetailView.html'
 
 
+def courseSubscribe(request, slug):
+    student = request.user.student
+    course = Course.objects.get(slug=slug)
+    course.students.add(student)
+    course.save()
+
+    return redirect('courseList')
+
+
 class TaskDetailView(DetailView):
     model = UploadTask
     template_name = 'screen/taskUploadDetailView.html'

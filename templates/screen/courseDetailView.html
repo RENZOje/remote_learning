@@ -66,4 +66,29 @@
         {% endfor %}
 
     </div>
+    <h2 style="margin: 20px">Rating</h2>
+    <div>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Group</th>
+                <th scope="col">Rating</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in course.students.all %}
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{ student.firstName }} {{ student.lastName }}</td>
+                    <td>{{ student.group }}</td>
+                    <td>@mdo</td>
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

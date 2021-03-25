@@ -82,6 +82,11 @@ class Section(models.Model):
                            key=attrgetter('createdAt'))
         return list_item
 
+    def return_mark_task(self):
+        list_item = sorted(chain(self.uploadtask_set.all(), self.quiz_set.all()),
+                           key=attrgetter('createdAt'))
+        return list_item
+
     def __str__(self):
         return f'Section: {self.title} Course: {self.course.title}'
 
@@ -143,7 +148,7 @@ class Answer(models.Model):
         return f"question: {self.question.text}, answer: {self.text}, correct: {self.correct}"
 
 
-class Result(models.Model):
+class ResultQuiz(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.FloatField()
@@ -197,4 +202,25 @@ class UploadAnswerTask(models.Model):
     comment = models.TextField(default='', blank=True)
     pdf_answer = models.FileField(upload_to='pdfAnswer/',
                                   validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
+    slug = models.SlugField(blank=True,null=True)
+    rated = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        return reverse('UploadAnswerTaskView', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = '-'.join((unique_slugify(self.studentUpload.firstName), unique_slugify(self.answer.title)))
+        super(UploadAnswerTask, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f'UploadAnswerTask: {self.answer.title}, student - {self.studentUpload.firstName}'
+
+
+class ResultUploadAnswerTask(models.Model):
+    task = models.OneToOneField(UploadAnswerTask, on_delete=models.CASCADE)
+    comment = models.TextField(blank=True,null=True)
+    score = models.FloatField(default=0)
+
+    def __str__(self):
+        return f'Quiz: {self.task}, student - {self.task.studentUpload.firstName}'

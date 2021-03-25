@@ -75,7 +75,7 @@ def saveQuizView(request, slug):
             else:
                 results.append({str(q): 'Not answered'})
         score_ = score * multiplier
-        Result.objects.create(quiz=quiz, user=user, score=score_)
+        ResultQuiz.objects.create(quiz=quiz, user=user, score=score_)
 
         if score_ >= quiz.required_score_to_pass:
             context = {'passed': True, 'score': round(score_, 2), 'results': results}

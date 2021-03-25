@@ -18,5 +18,11 @@
             </a>
 
         {% endif %}
+        {% if request.user.student in course.students.all %}
+            <a href="{{ course.get_absolute_url }}unsubscribe" class="card-link" onclick="return confirm('Unsubscribe from a `{{ course.title }}`course?')">
+                <button class="btn-danger btn-sm">Unsubscribe</button>
+            </a>
+
+        {% endif %}
     </div>
 </div>

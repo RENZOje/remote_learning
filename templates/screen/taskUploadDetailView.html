@@ -15,13 +15,7 @@
             {% csrf_token %}
 
             {% for field in form %}
-                {#                <div class="fieldWrapper">#}
-                {#                    {{ field.errors }}#}
-                {#                    {% if not field.html_name == "answer" and not field.html_name == "studentUpload"%}#}
-                {#                        {{ field.label_tag }} {{ field }}#}
-                {#                    {% endif %}#}
-                {##}
-                {#                </div>#}
+
                 {% if not field.html_name == "answer" and not field.html_name == "studentUpload" %}
 
                     {{ field|as_crispy_field }}

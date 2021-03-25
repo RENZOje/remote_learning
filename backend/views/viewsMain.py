@@ -60,6 +60,13 @@ def courseSubscribe(request, slug):
 
     return redirect('courseList')
 
+def courseUnSubscribe(request, slug):
+    student = request.user.student
+    course = Course.objects.get(slug=slug)
+    course.students.remove(student)
+    course.save()
+
+    return redirect('courseList')
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = UploadTask
@@ -81,6 +88,5 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     def post(self, request, *args, **kwargs):
         form = UploadAnswerTaskForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form.cleaned_data)
             form.save()
             return redirect('/')

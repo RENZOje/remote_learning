@@ -13,15 +13,15 @@ urlpatterns = [
     path('course/<slug:slug>/unsubscribe', courseUnSubscribe, name='courseUnSubscribe'),
 
     path('article/<slug:slug>/', ArticleDetailView.as_view(), name='articleDetail'),
-    path('task/<slug:slug>/', TaskDetailView.as_view(), name='taskDetail'),
+    path('task/<slug:slug>/', AssignmentDetailView.as_view(), name='taskDetail'),
 
     path('quiz/<slug:slug>/start/', QuizDetailView.as_view(), name='quizDetailView'),
     path('quiz/<slug:slug>/', quizView, name='quizDetail'),  # quizDetailView
     path('quiz/<slug:slug>/data/', quizDataView, name='quizDataDetail'),  # quizDataDetail
     path('quiz/<slug:slug>/save/', saveQuizView, name='saveQuizView'),
 
-    path('upload_task/<slug:slug>/', UploadAnswerTaskView.as_view(), name='UploadAnswerTaskView'),
-    path('upload_tasks/<slug:slug>/', resultUploadList, name='resultUploadList'),
+    path('upload_task/<slug:slug>/', UploadAssignmentView.as_view(), name='UploadAnswerTaskView'),
+    path('upload_tasks/<slug:slug>/', resultAssignmentList, name='resultUploadList'),
 
     path('profile/', profile, name='profile'),
     path('login/', loginStudent, name='loginStudent'),

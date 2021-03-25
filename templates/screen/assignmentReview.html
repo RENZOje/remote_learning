@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        Task: {{ object.answer }}
+        <hr>
+        Uploaded: {{ object.studentUpload.firstName }} {{ object.studentUpload.lastName }}
+        <hr>
+        Comment: {{ object.comment }}
+        <hr>
+        Pdf: <a href="{{ object.pdf_answer.url }}" target="_blank">
+        <button class="btn-info btn-sm">Review work</button>
+    </a>
+        <hr>
+        {% if object.rated %}
+            Rated: {{ object.resultassignment.score }}
+        {% endif %}
+    </div>
+    {% if not object.rated %}
+        {% if form %}
+            <h2 style="margin: 20px">Rate `{{ object.answer }}` work</h2>
+            <form action="" method="post" class="col-sm-6 col-sm-offset-3" style="margin-bottom: 50px">
+                {% csrf_token %}
+                {% for field in form %}
+
+                    {% if not field.html_name == "task" %}
+
+                        {{ field|as_crispy_field }}
+
+                    {% else %}
+                        <div hidden>
+                            {{ field }}
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+                <button type="submit" class="btn-info btn-sm">Submit</button>
+            </form>
+
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}

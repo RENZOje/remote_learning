@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
-from .models import UploadAnswerTask, Student, ResultUploadAnswerTask
+from .models import UploadAssignment, Student, ResultAssignment
 
 
 class CreateStudentForm(UserCreationForm):
@@ -10,12 +10,9 @@ class CreateStudentForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-from django import forms
-
-
-class UploadAnswerTaskForm(forms.ModelForm):
+class UploadAssignmentForm(forms.ModelForm):
     class Meta:
-        model = UploadAnswerTask
+        model = UploadAssignment
         fields = ['comment', 'pdf_answer', 'studentUpload', 'answer']
 
 
@@ -25,7 +22,7 @@ class StudentForm(forms.ModelForm):
         exclude = ['user', 'slug']
 
 
-class ResultUploadAnswerTaskForm(forms.ModelForm):
+class ResultAssignmentForm(forms.ModelForm):
     class Meta:
-        model = ResultUploadAnswerTask
+        model = ResultAssignment
         fields = '__all__'

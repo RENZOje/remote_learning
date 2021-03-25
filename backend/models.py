@@ -78,12 +78,12 @@ class Section(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def return_all_task(self):
-        list_item = sorted(chain(self.uploadtask_set.all(), self.article_set.all(), self.quiz_set.all()),
+        list_item = sorted(chain(self.assignment_set.all(), self.article_set.all(), self.quiz_set.all()),
                            key=attrgetter('createdAt'))
         return list_item
 
     def return_mark_task(self):
-        list_item = sorted(chain(self.uploadtask_set.all(), self.quiz_set.all()),
+        list_item = sorted(chain(self.assignment_set.all(), self.quiz_set.all()),
                            key=attrgetter('createdAt'))
         return list_item
 
@@ -175,7 +175,7 @@ class Article(models.Model):
         return f'{self.title}'
 
 
-class UploadTask(models.Model):
+class Assignment(models.Model):
     title = models.CharField(max_length=250, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
@@ -186,7 +186,7 @@ class UploadTask(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = unique_slugify(self.title)
-        super(UploadTask, self).save(*args, **kwargs)
+        super(Assignment, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('taskDetail', kwargs={'slug': self.slug})
@@ -195,8 +195,8 @@ class UploadTask(models.Model):
         return f'{self.title}'
 
 
-class UploadAnswerTask(models.Model):
-    answer = models.ForeignKey(UploadTask, on_delete=models.CASCADE, blank=True)
+class UploadAssignment(models.Model):
+    answer = models.ForeignKey(Assignment, on_delete=models.CASCADE, blank=True)
     studentUpload = models.ForeignKey(Student, on_delete=models.CASCADE, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     comment = models.TextField(default='', blank=True)
@@ -211,14 +211,14 @@ class UploadAnswerTask(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = '-'.join((unique_slugify(self.studentUpload.firstName), unique_slugify(self.answer.title)))
-        super(UploadAnswerTask, self).save(*args, **kwargs)
+        super(UploadAssignment, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'UploadAnswerTask: {self.answer.title}, student - {self.studentUpload.firstName}'
 
 
-class ResultUploadAnswerTask(models.Model):
-    task = models.OneToOneField(UploadAnswerTask, on_delete=models.CASCADE)
+class ResultAssignment(models.Model):
+    task = models.OneToOneField(UploadAssignment, on_delete=models.CASCADE)
     comment = models.TextField(blank=True,null=True)
     score = models.FloatField(default=0)
 

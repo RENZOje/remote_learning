@@ -10,8 +10,8 @@ admin.site.register(Section)
 admin.site.register(Student)
 admin.site.register(Course)
 admin.site.register(Group_custom)
-admin.site.register(UploadTask)
-admin.site.register(UploadAnswerTask)
+admin.site.register(Assignment)
+admin.site.register(UploadAssignment)
 
 class AnswerInline(admin.TabularInline):
     model = Answer
@@ -22,7 +22,7 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer)
 admin.site.register(ResultQuiz)
-admin.site.register(ResultUploadAnswerTask)
+admin.site.register(ResultAssignment)
 
 
 class AtricleAdminForm(forms.ModelForm):

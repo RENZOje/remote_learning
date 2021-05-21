@@ -5,6 +5,7 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 # Register your models here.
 admin.site.register(Quiz)
+admin.site.register(Grade)
 admin.site.register(Teacher)
 admin.site.register(Section)
 admin.site.register(Student)

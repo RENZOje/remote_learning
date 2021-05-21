@@ -3,8 +3,14 @@
 
 
 {% block content %}
-    <h3><b>{{ object.title }}</b></h3>
-    <p>Score to pass: {{ object.required_score_to_pass }} %</p>
+    <div class="row">
+        <div class="col"><h3><b>{{ object.title }}</b></h3>
+            <p>Score to pass: {{ object.required_score_to_pass }} %</p></div>
+        <div class="col text-right" id="timer-box"></div>
+    </div>
+
+    <button class="btn-sm btn-danger"> go back</button>
+
     <form id="quiz-form" class="mt-3 mb-3">
         {% csrf_token %}
         <div id="quiz-box">

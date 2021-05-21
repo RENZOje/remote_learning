@@ -17,9 +17,13 @@ class QuizDetailView(DetailView):
 
 def quizView(request, slug):
     quiz = Quiz.objects.get(slug=slug)
-    context = {'object': quiz}
-
-    return render(request, 'quiz/quiz.html', context)
+    try:
+        result = ResultQuiz.objects.get(quiz=quiz, student=request.user.student)
+        context = {'object': quiz, 'resultQuiz': result}
+        return render(request, 'quiz/quiz.html', context)
+    except:
+        context = {'object': quiz}
+        return render(request, 'quiz/quiz.html', context)
 
 
 def quizDataView(request, slug):
@@ -50,7 +54,7 @@ def saveQuizView(request, slug):
             questions.append(question)
         print(questions)
 
-        user = request.user
+        student = request.user.student
         quiz = Quiz.objects.get(slug=slug)
 
         score = 0
@@ -75,7 +79,12 @@ def saveQuizView(request, slug):
             else:
                 results.append({str(q): 'Not answered'})
         score_ = score * multiplier
-        ResultQuiz.objects.create(quiz=quiz, user=user, score=score_)
+        ResultQuiz.objects.create(quiz=quiz, student=student, score=score_)
+
+        course = quiz.section.course
+        grade = Grade.objects.get(course=course, student=student)
+        grade.amountPoint = int(grade.amountPoint) + int(score_)
+        grade.save()
 
         if score_ >= quiz.required_score_to_pass:
             context = {'passed': True, 'score': round(score_, 2), 'results': results}

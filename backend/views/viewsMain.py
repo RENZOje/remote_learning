@@ -48,6 +48,7 @@ class ArticleDetailView(LoginRequiredMixin, DetailView):
 def courseSubscribe(request, slug):
     student = request.user.student
     course = Course.objects.get(slug=slug)
+    grade = Grade.objects.create(student=student,course=course)
     course.students.add(student)
     course.save()
 

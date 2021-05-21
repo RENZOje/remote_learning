@@ -8,18 +8,25 @@
             <p>Score to pass: {{ object.required_score_to_pass }} %</p></div>
         <div class="col text-right" id="timer-box"></div>
     </div>
+    {% if not resultQuiz %}
+        <button class="btn-sm btn-danger"> go back</button>
 
-    <button class="btn-sm btn-danger"> go back</button>
+        <form id="quiz-form" class="mt-3 mb-3">
+            {% csrf_token %}
+            <div id="quiz-box">
 
-    <form id="quiz-form" class="mt-3 mb-3">
-        {% csrf_token %}
-        <div id="quiz-box">
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Send answer</button>
+        </form>
+        <div id="score-box" class="h2"></div>
+        <div id="result-box"></div>
+    {% endif %}
+    {% if resultQuiz %}
+        <h2> You already answered on this quiz!</h2>
+        <h2>You score was {{ resultQuiz.score }} %</h2>
+    {% endif %}
 
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Send answer</button>
-    </form>
-    <div id="score-box" class="h2"></div>
-    <div id="result-box"></div>
+
 {% endblock %}
 
 {% block scripts %}

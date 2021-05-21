@@ -150,12 +150,17 @@ class Answer(models.Model):
 
 class ResultQuiz(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
     score = models.FloatField()
 
     def __str__(self):
-        return f'Quiz: {self.quiz}, student - {self.user.first_name}'
+        return f'Quiz: {self.quiz}, student - {self.student.firstName}'
 
+    # def quizPassed(self, request):
+    #     if ResultQuiz.objects.get(quiz=self.quiz, student=request.user.student):
+    #         return True
+    #     else:
+    #         return False
 
 class Article(models.Model):
     title = models.CharField(max_length=250, blank=True)

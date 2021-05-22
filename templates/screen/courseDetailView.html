@@ -78,12 +78,12 @@
             </tr>
             </thead>
             <tbody>
-            {% for student in course.students.all %}
+            {% for id,elem in mainList %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>{{ student.firstName }} {{ student.lastName }}</td>
-                    <td>{{ student.group }}</td>
-                    <td>@mdo</td>
+                    <th scope="row">{{ id }}</th>
+                    <td>{{ elem.0.firstName }} {{ elem.0.lastName }}</td>
+                    <td>{{ elem.0.group }}</td>
+                    <td>{{ elem.1.amountPoint }}</td>
                 </tr>
             {% endfor %}
 

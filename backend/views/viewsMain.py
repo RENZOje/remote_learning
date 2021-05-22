@@ -27,6 +27,14 @@ class CourseDetailView(LoginRequiredMixin,DetailView):
     model = Course
     template_name = 'screen/courseDetailView.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = Course.objects.get(id=self.object.id)
+        students = course.students.all()
+        grade = [Grade.objects.get(student=student, course=course) for student in students]
+        context['mainList'] = list(enumerate(zip(students,grade),1))
+
+        return context
 
 class CourseListSubscribeView(LoginRequiredMixin,ListView):
     model = Course
@@ -48,7 +56,7 @@ class ArticleDetailView(LoginRequiredMixin, DetailView):
 def courseSubscribe(request, slug):
     student = request.user.student
     course = Course.objects.get(slug=slug)
-    grade = Grade.objects.create(student=student,course=course)
+    grade = Grade.objects.get_or_create(student=student,course=course)
     course.students.add(student)
     course.save()
 

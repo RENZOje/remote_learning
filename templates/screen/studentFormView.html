@@ -2,7 +2,14 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-
+    <style>
+    .profile-pic{
+        max-width: 200px;
+        max-height: 200px;
+        margin: 0 auto;
+        border-radius: 50%;
+    }
+    </style>
     <div class="container">
         <div class="row gutters">
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12" style="margin: 50px">
@@ -11,8 +18,8 @@
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="user-avatar" style="margin: auto;">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin"
-                                         style="margin: auto">
+                                    <img src="{{ request.user.student.profilePicture.url }}" class="profile-pic" alt="{{ request.user.student.firstName }}{{ request.user.student.lastName }}">
+
                                 </div>
                                 <h5 class="user-name" style="margin: 10px">{{ request.user.student.firstName }} {{ request.user.student.lastName }}</h5>
                                 <h6 class="user-email">{{ request.user.student.email }} </h6>
@@ -34,7 +41,7 @@
                                 <h4 class="mb-3 text-primary" style="padding: 40px">Personal Details</h4>
                             </div>
 
-                            <form action="" method="post">
+                            <form action="" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
                                     <div class="form-group" style="margin: auto">

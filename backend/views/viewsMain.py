@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from ..filters import CourseFilter
 from backend.models import *
 from ..forms import UploadAssignmentForm
 
@@ -20,6 +21,7 @@ class CourseListView(LoginRequiredMixin,ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['filter'] = CourseFilter(self.request.GET,queryset=self.get_queryset())
         return context
 
 
@@ -43,7 +45,7 @@ class CourseListSubscribeView(LoginRequiredMixin,ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['course_list'] = Course.objects.filter(students__in=[self.request.user.student])
+        context['filter'] = CourseFilter(self.request.GET, queryset=Course.objects.filter(students__in=[self.request.user.student]))
         return context
 
 

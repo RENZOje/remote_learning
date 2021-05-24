@@ -6,7 +6,7 @@
     {% if request.user.teacher in course.teachers.all %}
         <div class="col-md-2">
         </div>
-        <form class="col-md-6" style="margin: auto" method="post">
+        <form class="col-md-6" style="margin: auto" method="post" enctype="multipart/form-data">>
             {% csrf_token %}
             <h3>Course: {{ course.title }}</h3>
 

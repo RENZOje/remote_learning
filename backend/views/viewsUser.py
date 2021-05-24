@@ -10,12 +10,11 @@ from ..forms import CreateStudentForm, StudentForm
 from ..models import *
 
 
-@allowed_users(allowed_roles=['student'])
 def profile(request):
     student = get_object_or_404(Student, id=request.user.student.id)
     form = StudentForm(instance=student)
     if request.method == 'POST':
-        form = StudentForm(request.POST, instance=student, initial={'slug': student.slug})
+        form = StudentForm(request.POST, request.FILES, instance=student, initial={'slug': student.slug})
         if form.is_valid():
             form.save()
 
@@ -64,6 +63,7 @@ def loginStudent(request):
 
         context = {}
         return render(request, 'screen/login.html', context)
+
 
 def logoutStudent(request):
     logout(request)

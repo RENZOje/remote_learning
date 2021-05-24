@@ -1,8 +1,8 @@
 {% load static %}
 <div class="card">
     <div class="card-body">
-        <img class="card-img-overlay "
-             src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" alt="">
+        <img class="card-img-overlay"
+             src="{{ course.coursePicture.url }}" alt="">
         <h5 class="card-title">{{ course.title }}</h5>
         <span class="card-text" style="padding: 10px">
                 {{ course.description }}
@@ -19,7 +19,8 @@
 
         {% endif %}
         {% if request.user.student in course.students.all %}
-            <a href="{{ course.get_absolute_url }}unsubscribe" class="card-link" onclick="return confirm('Unsubscribe from a `{{ course.title }}`course?')">
+            <a href="{{ course.get_absolute_url }}unsubscribe" class="card-link"
+               onclick="return confirm('Unsubscribe from a `{{ course.title }}`course?')">
                 <button class="btn-danger btn-sm">Unsubscribe</button>
             </a>
 

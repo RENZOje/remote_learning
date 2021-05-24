@@ -8,7 +8,7 @@ def addCourse(request):
     teacher = request.user.teacher
     form = CourseForm(initial={"teachers": teacher})
     if request.method == 'POST':
-        form = CourseForm(request.POST)
+        form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('courseList')
@@ -21,12 +21,13 @@ def editCourse(request, slug):
     course = Course.objects.get(slug=slug)
     form = CourseForm(instance=course)
     if request.method == 'POST':
-        form = CourseForm(request.POST, instance=course)
+        form = CourseForm(request.POST, request.FILES, instance=course)
         if form.is_valid():
             form.save()
 
     context = {'form': form, 'course': course}
     return render(request, 'screen/editCourse.html', context=context)
+
 
 def deleteCourse(request, slug):
     course = Course.objects.get(slug=slug)
@@ -34,9 +35,10 @@ def deleteCourse(request, slug):
         course.delete()
         return redirect('courseList')
 
+
 def addSection(request, slug):
     course = Course.objects.get(slug=slug)
-    form = SectionForm(initial={"course":course})
+    form = SectionForm(initial={"course": course})
     if request.method == 'POST':
         form = SectionForm(request.POST)
         if form.is_valid():

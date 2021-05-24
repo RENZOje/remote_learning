@@ -22,12 +22,23 @@ class Teacher(models.Model):
     lastName = models.CharField(max_length=50, blank=True)
     middleName = models.CharField(max_length=50, blank=True)
     email = models.EmailField(max_length=50, blank=True)
+    profilePicture = models.ImageField(null=True, blank=True)
     phone = models.CharField(max_length=50, blank=True)
+    about = models.CharField(max_length=250, blank=True)
+    telegram_link = models.CharField(max_length=100, blank=True)
+    group = models.ForeignKey(Group_custom, on_delete=models.SET_NULL, null=True, blank=True)
     slug = models.SlugField()
 
     def __str__(self):
         return f'Teacher: {self.firstName} {self.lastName}'
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = '-'.join((unique_slugify(self.firstName), unique_slugify(self.lastName)))
+        super(Teacher, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('studentDetail', kwargs={'slug': self.slug})
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -35,6 +46,7 @@ class Student(models.Model):
     lastName = models.CharField(max_length=50, blank=True)
     middleName = models.CharField(max_length=50, blank=True)
     email = models.EmailField(max_length=50, blank=True)
+    profilePicture = models.ImageField(null=True,blank=True)
     phone = models.CharField(max_length=50, blank=True)
     about = models.CharField(max_length=250, blank=True)
     telegram_link = models.CharField(max_length=100, blank=True)
@@ -56,6 +68,7 @@ class Student(models.Model):
 class Course(models.Model):
     teachers = models.ManyToManyField(Teacher, blank=True)
     students = models.ManyToManyField(Student, blank=True)
+    coursePicture = models.ImageField(null=True,blank=True)
     title = models.CharField(max_length=250, blank=False)
     description = models.TextField(blank=True)
     draft = models.BooleanField(default=True)
@@ -114,6 +127,8 @@ class Quiz(models.Model):
     time = models.IntegerField(help_text="duration of the quiz in minutes")
     createdAt = models.DateTimeField(auto_now_add=True)
     required_score_to_pass = models.IntegerField(help_text="required score in %")
+    draft = models.BooleanField(default=True)
+
 
     def __str__(self):
         return f"{self.title}"

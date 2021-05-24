@@ -9,7 +9,7 @@
         </div>
         <div class="col col-lg-9">
         <h3>Add a new course: </h3>
-        <form class="col-md-6" style="margin: auto" method="post">
+        <form class="col-md-6" style="margin: auto" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             {{ form|crispy }}

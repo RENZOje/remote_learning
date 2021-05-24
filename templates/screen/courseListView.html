@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
 {% block content %}
+    <form class="form-inline" style="margin: 0 0 0 60%;padding: 20px" method="GET">
+        {{ filter.form|crispy }}
+        <button class="btn-sm" style="margin: 25px 0 0 0" type="submit">Search</button>
+    </form>
     <div class="container">
         {% if request.user.teacher %}
             <div class="card"><a href="{% url 'addCourse' %}">
@@ -10,12 +15,10 @@
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
                 </svg>
                 <h3 style="margin: 0 0 0 70px">Add course</h3>
-                </a>
+            </a>
             </div>
         {% endif %}
-        {% for course in course_list %}
-            <a href="{{ course.get_absolute_url }}">{% include 'components/cardCourse.html' %}</a>
-            <a href="{{ course.get_absolute_url }}">{% include 'components/cardCourse.html' %}</a>
+        {% for course in filter.qs %}
             <a href="{{ course.get_absolute_url }}">{% include 'components/cardCourse.html' %}</a>
         {% endfor %}
     </div>

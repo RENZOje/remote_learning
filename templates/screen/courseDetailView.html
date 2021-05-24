@@ -52,8 +52,12 @@
         }
     </style>
     <div>
+        <div style="margin: 0 0 0 90%">
+            <a href="{% url 'editCourse' object.slug %}">
+                <button class="btn-sm btn-danger">Edit Course</button>
+            </a>
+        </div>
         {% for section in object.section_set.all %}
-
             <div class="dropdown">
                 <button class="dropbtn">{{ section.title }}</button>
                 <div class="dropdown-content">
@@ -73,7 +77,9 @@
         {% endfor %}
         {% if request.user.teacher in object.teachers.all %}
             <div class="dropdown">
-                <a href="{% url 'sectionAdd' object.slug %}"><button class="dropbtn">Add section</button></a>
+                <a href="{% url 'sectionAdd' object.slug %}">
+                    <button class="dropbtn">Add section</button>
+                </a>
             </div>
         {% endif %}
         {#        {{ object.teachers.all }}#}

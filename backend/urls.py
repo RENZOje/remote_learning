@@ -10,6 +10,8 @@ urlpatterns = [
     path('course/add', addCourse, name='addCourse'),
     path('course/subscribe/', CourseListSubscribeView.as_view(), name='courseListSubscribe'),
     path('course/<slug:slug>/', CourseDetailView.as_view(), name='courseDetail'),
+    path('course/<slug:slug>/edit', editCourse, name='editCourse'),
+    path('course/<slug:slug>/delete', deleteCourse, name='deleteCourse'),
     path('course/<slug:slug>/subscribe', courseSubscribe, name='courseSubscribe'),
     path('course/<slug:slug>/unsubscribe', courseUnSubscribe, name='courseUnSubscribe'),
 

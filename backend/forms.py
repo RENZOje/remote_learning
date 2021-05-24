@@ -31,7 +31,7 @@ class ResultAssignmentForm(forms.ModelForm):
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['title','description']
+        fields = ['title','description','draft','teachers']
 
 class SectionForm(forms.ModelForm):
     class Meta:

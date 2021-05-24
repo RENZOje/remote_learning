@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    {% if request.user.teacher in course.teachers.all %}
+        <div class="col-md-2">
+        </div>
+        <form class="col-md-6" style="margin: auto" method="post">
+            {% csrf_token %}
+            <h3>Course: {{ course.title }}</h3>
+
+            {{ form|crispy }}
+            <button class="btn-sm btn-primary" type="submit">Update</button>
+            <a onclick="return confirm('Are you sure you want to delete this course?');" style="{display: contents;}"
+               class="btn-sm btn-danger"
+               href="{% url 'deleteCourse' course.slug %} ">Delete</a>
+
+        </form>
+
+
+    {% else %}
+        <h1>You not allow to use this page!</h1>
+    {% endif %}
+{% endblock %}

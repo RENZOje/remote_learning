@@ -56,8 +56,9 @@ class Student(models.Model):
 class Course(models.Model):
     teachers = models.ManyToManyField(Teacher, blank=True)
     students = models.ManyToManyField(Student, blank=True)
-    title = models.CharField(max_length=250, blank=True)
+    title = models.CharField(max_length=250, blank=False)
     description = models.TextField(blank=True)
+    draft = models.BooleanField(default=True)
     slug = models.SlugField()
 
     def save(self, *args, **kwargs):
@@ -77,7 +78,7 @@ class Section(models.Model):
     title = models.CharField(max_length=250, blank=True)
     description = models.TextField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    slug = models.SlugField()
+    slug = models.SlugField(default='str')
 
     def return_all_task(self):
         list_item = sorted(chain(self.assignment_set.all(), self.article_set.all(), self.quiz_set.all()),

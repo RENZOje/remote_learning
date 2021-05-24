@@ -5,16 +5,34 @@ from ..models import *
 
 
 def addCourse(request):
-    form = CourseForm()
+    teacher = request.user.teacher
+    form = CourseForm(initial={"teachers": teacher})
     if request.method == 'POST':
         form = CourseForm(request.POST)
         if form.is_valid():
             form.save()
-            print(form)
             return redirect('courseList')
 
     context = {'form': form}
     return render(request, 'screen/addCourse.html', context=context)
+
+
+def editCourse(request, slug):
+    course = Course.objects.get(slug=slug)
+    form = CourseForm(instance=course)
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form, 'course': course}
+    return render(request, 'screen/editCourse.html', context=context)
+
+def deleteCourse(request, slug):
+    course = Course.objects.get(slug=slug)
+    if request.method == "GET":
+        course.delete()
+        return redirect('courseList')
 
 def addSection(request, slug):
     course = Course.objects.get(slug=slug)

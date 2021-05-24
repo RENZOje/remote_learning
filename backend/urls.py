@@ -7,10 +7,15 @@ from backend.views.viewsTeacher import *
 urlpatterns = [
     path('', index, name='homeView'),
     path('course/', CourseListView.as_view(), name='courseList'),
+    path('course/add', addCourse, name='addCourse'),
     path('course/subscribe/', CourseListSubscribeView.as_view(), name='courseListSubscribe'),
     path('course/<slug:slug>/', CourseDetailView.as_view(), name='courseDetail'),
     path('course/<slug:slug>/subscribe', courseSubscribe, name='courseSubscribe'),
     path('course/<slug:slug>/unsubscribe', courseUnSubscribe, name='courseUnSubscribe'),
+
+    path('section/<slug:slug>/edit', editSection, name='sectionEdit'),
+    path('section/<slug:slug>/delete', deleteSection, name='sectionDelete'),
+    path('section/<slug:slug>/add', addSection, name='sectionAdd'),
 
     path('article/<slug:slug>/', ArticleDetailView.as_view(), name='articleDetail'),
     path('task/<slug:slug>/', AssignmentDetailView.as_view(), name='taskDetail'),
@@ -20,6 +25,7 @@ urlpatterns = [
     path('quiz/<slug:slug>/data/', quizDataView, name='quizDataDetail'),  # quizDataDetail
     path('quiz/<slug:slug>/save/', saveQuizView, name='saveQuizView'),
 
+    path('teacher_course', courseAssignmentView.as_view(), name='courseAssignmentView'),
     path('upload_task/<slug:slug>/', UploadAssignmentView.as_view(), name='UploadAnswerTaskView'),
     path('upload_tasks/<slug:slug>/', resultAssignmentList, name='resultUploadList'),
 

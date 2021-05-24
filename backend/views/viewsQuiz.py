@@ -83,7 +83,7 @@ def saveQuizView(request, slug):
 
         course = quiz.section.course
         grade = Grade.objects.get(course=course, student=student)
-        grade.amountPoint = int(grade.amountPoint) + int(score_)
+        grade.amountPoint = float(round(grade.amountPoint, 2)) + float(round(score_, 2))
         grade.save()
 
         if score_ >= quiz.required_score_to_pass:

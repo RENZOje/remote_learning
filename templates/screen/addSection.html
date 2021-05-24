@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-3">
+
+        </div>
+        <div class="col col-lg-9">
+            {% if request.user.teacher in course.teachers.all %}
+                <h3>Add a new section to the course `{{ course.title }}`: </h3>
+                <form class="col-md-6" style="margin: auto" method="post">
+                    {% csrf_token %}
+
+                    {{ form|crispy }}
+                    <button class="btn-sm btn-primary" type="submit">Add</button>
+
+                </form>
+            {% else %}
+                <h1>You not allow to use this page!</h1>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

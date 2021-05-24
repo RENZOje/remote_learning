@@ -17,7 +17,7 @@ class Group_custom(models.Model):
 
 
 class Teacher(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     firstName = models.CharField(max_length=50, blank=True)
     lastName = models.CharField(max_length=50, blank=True)
     middleName = models.CharField(max_length=50, blank=True)
@@ -66,7 +66,8 @@ class Course(models.Model):
         super(Course, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f'Course: {self.title} Created: {self.teachers}'
+        teachers = ' '.join([f'Teacher {x.firstName} {x.lastName}' for x in self.teachers.all()])
+        return f'Course: {self.title} Created: {teachers}'
 
     def get_absolute_url(self):
         return reverse('courseDetail', kwargs={'slug': self.slug})
@@ -76,6 +77,7 @@ class Section(models.Model):
     title = models.CharField(max_length=250, blank=True)
     description = models.TextField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    slug = models.SlugField()
 
     def return_all_task(self):
         list_item = sorted(chain(self.assignment_set.all(), self.article_set.all(), self.quiz_set.all()),
@@ -87,6 +89,11 @@ class Section(models.Model):
                            key=attrgetter('createdAt'))
         return list_item
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = unique_slugify(self.title)
+        super(Section, self).save(*args, **kwargs)
+
     def __str__(self):
         return f'Section: {self.title} Course: {self.course.title}'
 
@@ -94,7 +101,7 @@ class Section(models.Model):
 class Grade(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    amountPoint = models.IntegerField(default=0)
+    amountPoint = models.FloatField(default=0)
 
 
 class Quiz(models.Model):

@@ -61,9 +61,28 @@
                     {% for item in section.return_all_task %}
                         <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                     {% endfor %}
+
+                    {% if request.user.teacher in object.teachers.all %}
+                        <a href="{% url 'sectionEdit' section.slug %}">
+                            <button class="btn-sm btn-danger" style="margin: 5px">Edit Section</button>
+                        </a>
+                    {% endif %}
                 </div>
+
             </div>
         {% endfor %}
+        {% if request.user.teacher in object.teachers.all %}
+            <div class="dropdown">
+                <a href="{% url 'sectionAdd' object.slug %}"><button class="dropbtn">Add section</button></a>
+            </div>
+        {% endif %}
+        {#        {{ object.teachers.all }}#}
+        {#        {% if request.user.teacher %}#}
+        {#            <div class="dropdown">#}
+        {#                <button class="dropbtn">Add section</button>#}
+        {#            </div>#}
+        {#        {% endif %}#}
+
 
     </div>
     <h2 style="margin: 20px">Rating</h2>

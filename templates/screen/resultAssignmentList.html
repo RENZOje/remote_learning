@@ -14,10 +14,10 @@
             <tbody>
             {% for object in uploadAssignmentSet %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>{{ object.studentUpload.firstName }} {{ object.studentUpload.lastName }}</td>
-                    <td>{{ object.resultassignment.score }}</td>
-                    <td><a href="{{ object.get_absolute_url }}" target="_blank">Review work</a></td>
+                    <th scope="row">{{ object.0 }}</th>
+                    <td>{{ object.1.studentUpload.firstName }} {{ object.1.studentUpload.lastName }}</td>
+                    <td>{{ object.1.resultassignment.score }}</td>
+                    <td><a href="{{ object.1.get_absolute_url }}" target="_blank">Review work</a></td>
                 </tr>
             {% endfor %}
 

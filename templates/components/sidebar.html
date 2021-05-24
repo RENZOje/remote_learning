@@ -2,10 +2,12 @@
 
     <nav class="mainMenu">
         <ul class="menu">
+            {% if request.user.teacher %}
             <li>
-                <a class="smoothScroll" href="#timeline-part" title="What Is Luxury?"><i
-                        class="step icon-question size-24"></i><span class="text">What is Luxury?</span></a>
+                <a class="smoothScroll" href="{% url 'courseAssignmentView' %}" title="What Is Luxury?"><i
+                        class="step icon-question size-24"></i><span class="text">Assignment review</span></a>
             </li>
+            {% endif %}
             <li>
                 <a class="smoothScroll" href="{% url 'courseList' %}" title="Course"><i
                         class="icon-reciept-1 size-24"></i><span class="text">Course</span></a>

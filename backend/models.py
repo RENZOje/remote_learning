@@ -193,7 +193,8 @@ class Article(models.Model):
     slug = models.SlugField(blank=True)
 
     def save(self, *args, **kwargs):
-        self.slug = unique_slugify(self.title)
+        if not self.slug:
+            self.slug = unique_slugify(self.title)
         super(Article, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -213,7 +214,8 @@ class Assignment(models.Model):
                                 validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
 
     def save(self, *args, **kwargs):
-        self.slug = unique_slugify(self.title)
+        if not self.slug:
+            self.slug = unique_slugify(self.title)
         super(Assignment, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

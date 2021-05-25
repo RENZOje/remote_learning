@@ -52,7 +52,7 @@ class CourseListSubscribeView(LoginRequiredMixin,ListView):
 
 class ArticleDetailView(LoginRequiredMixin, DetailView):
     model = Article
-    template_name = 'screen/taskDetailView.html'
+    template_name = 'screen/articleView.html'
 
 
 def courseSubscribe(request, slug):

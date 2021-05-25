@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
+from ckeditor.widgets import CKEditorWidget
 from .models import *
 
 
@@ -64,3 +65,12 @@ class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
         fields = '__all__'
+
+
+class ArticleForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorWidget())
+
+    class Meta:
+        model = Article
+        fields = '__all__'
+        exclude = ['slug']

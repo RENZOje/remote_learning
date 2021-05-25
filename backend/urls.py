@@ -26,6 +26,9 @@ urlpatterns = [
     path('section/<slug:slug>/add/', addSection, name='sectionAdd'),
 
     path('article/<slug:slug>/', ArticleDetailView.as_view(), name='articleDetail'),
+    path('article/<slug:slug>/add/', addArticle, name='addArticle'),
+    path('article/<slug:slug>/edit/', editArticle, name='editArticle'),
+    path('article/<slug:slug>/delete/', deleteArticle, name='deleteArticle'),
     path('task/<slug:slug>/', AssignmentDetailView.as_view(), name='taskDetail'),
 
     path('quiz/<slug:slug>/create/', createQuiz, name='createQuiz'),

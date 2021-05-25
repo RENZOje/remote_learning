@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView, ListView
-from ..forms import ResultAssignmentForm, SectionForm, CourseForm
+from ..forms import ResultAssignmentForm, SectionForm, CourseForm, ArticleForm
 from ..models import *
 
 
@@ -109,5 +109,39 @@ class courseAssignmentView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['course'] = Course.objects.filter(teachers=self.request.user.teacher)
-
         return context
+
+
+def addArticle(request, slug):
+    section = Section.objects.get(slug=slug)
+    form = ArticleForm(initial={"section": section})
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('courseList')
+
+    context = {'form': form}
+    return render(request, 'screen/addArticle.html', context=context)
+
+
+def editArticle(request, slug):
+    article = Article.objects.get(slug=slug)
+    section = article.section
+    form = ArticleForm(instance=article, initial={"section": section})
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article, initial={"section": section})
+        if form.is_valid():
+            form.save()
+            return redirect('articleDetail', slug=article.slug)
+
+    context = {'form': form, 'article': article}
+    return render(request, 'screen/editArticle.html', context=context)
+
+
+def deleteArticle(request, slug):
+    article = Article.objects.get(slug=slug)
+    section = article.section
+    if request.method == "GET":
+        article.delete()
+        return redirect('courseDetail', slug=section.course.slug)

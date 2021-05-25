@@ -2,13 +2,12 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
     {% if request.user.teacher in object.course.teachers.all %}
         <div class="col-md-2">
         </div>
         <form class="col-md-6" style="margin: auto" method="post">
-            <button class="btn-sm btn-primary">Add article</button>
-            <button class="btn-sm btn-primary">Add quiz</button>
+            <button class="btn-sm btn-primary"><a href="{% url 'addArticle' object.slug %}">Add article</a></button>
+            <button class="btn-sm btn-primary"><a href="{% url 'createQuiz' object.slug %}">Add quiz</a></button>
             <button class="btn-sm btn-primary">Add assignment</button>
             {% csrf_token %}
             <h3>Section: {{ object.title }}</h3>

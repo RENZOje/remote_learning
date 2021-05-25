@@ -44,11 +44,18 @@
         </div>
     </div>
 
-    <h1>Quiz {{ object.title }}</h1>
+    <h4>Quiz: `{{ object.title }}`</h4>
+    {% if request.user.teacher in object.section.course.teachers.all %}
+        <div style="margin: 0 0 0 90%">
+            <a href="{% url 'quizEdit' object.slug %}">
+                <button class="btn-sm btn-danger">Edit Quiz</button>
+            </a>
+        </div>
+    {% endif %}
     <hr>
-    <h2>
+    <h5>
         Would you like to
-        <button class="btn btn-primary" data-pk="{{ object.pk }}"
+        <button class="btn-sm btn-primary" data-pk="{{ object.pk }}"
                 data-quiz="{{ object.title }}"
                 data-question="{{ object.number_of_questions }}"
                 data-time="{{ object.time }}"
@@ -57,7 +64,7 @@
             Start {{ object.title }}
         </button>
         ?
-    </h2>
+    </h5>
 
 
 {% endblock %}

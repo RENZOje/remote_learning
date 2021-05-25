@@ -52,11 +52,13 @@
         }
     </style>
     <div>
-        <div style="margin: 0 0 0 90%">
-            <a href="{% url 'editCourse' object.slug %}">
-                <button class="btn-sm btn-danger">Edit Course</button>
-            </a>
-        </div>
+        {% if request.user.teacher in object.teachers.all %}
+            <div style="margin: 0 0 0 90%">
+                <a href="{% url 'editCourse' object.slug %}">
+                    <button class="btn-sm btn-danger">Edit Course</button>
+                </a>
+            </div>
+        {% endif %}
         {% for section in object.section_set.all %}
             <div class="dropdown">
                 <button class="dropbtn">{{ section.title }}</button>

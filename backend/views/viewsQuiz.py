@@ -1,7 +1,12 @@
+from django.db import transaction
+from django.urls import reverse_lazy
 from django.http import JsonResponse
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import DetailView, CreateView, DeleteView, ListView, UpdateView
 from ..models import *
+from ..forms import *
+
+from ..forms import QuestionFormSet
 
 
 # Create your views here.
@@ -92,3 +97,109 @@ def saveQuizView(request, slug):
         else:
             context = {'passed': False, 'score': round(score_, 2), 'results': results}
             return JsonResponse(context)
+
+
+def createQuiz(request, slug):
+    section = Section.objects.get(slug=slug)
+    form = QuizForm(initial={"section": section})
+    if request.method == 'POST':
+        form = QuizForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('sectionEdit', slug=section.slug)
+
+    context = {'form': form, 'section': section}
+    return render(request, 'quiz/createQuiz.html', context=context)
+
+
+def editQuiz(request, slug):
+    quiz = Quiz.objects.get(slug=slug)
+    questions = quiz.question_set.all()
+
+    context = {'questions': questions, 'quiz': quiz}
+    return render(request, 'quiz/question_list.html', context=context)
+
+
+class QuestionCreate(CreateView):
+    model = Question
+    fields = ['text', 'quiz']
+
+
+class QuestionAnswerCreate(CreateView):
+    model = Question
+    fields = ['text', 'quiz']
+    template_name = 'quiz/question_form.html'
+
+    def get_success_url(self):
+        quiz = self.object.quiz.slug
+        return reverse_lazy('quizEdit',kwargs={'slug': quiz},)
+
+    def get_initial(self):
+        quiz = get_object_or_404(Quiz, slug=self.kwargs.get('slug'))
+        return {
+            'quiz':quiz,
+        }
+
+    def get_context_data(self, **kwargs):
+        data = super(QuestionAnswerCreate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['questionQuizList'] = QuestionFormSet(self.request.POST, )
+        else:
+            data['questionQuizList'] = QuestionFormSet()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        print(self.object)
+        familymembers = context['questionQuizList']
+        with transaction.atomic():
+            self.object = form.save()
+
+            if familymembers.is_valid():
+                familymembers.instance = self.object
+                familymembers.save()
+        return super(QuestionAnswerCreate, self).form_valid(form)
+
+
+class QuestionUpdate(UpdateView):
+    model = Question
+    success_url = '/'
+    fields = ['text', 'quiz']
+
+
+class QuestionAnswerUpdate(UpdateView):
+    model = Question
+    fields = ['text', 'quiz']
+    template_name = 'quiz/question_form.html'
+
+    def get_success_url(self):
+        quiz = self.object.quiz.slug
+        return reverse_lazy('quizEdit',kwargs={'slug': quiz},)
+
+    def get_context_data(self, **kwargs):
+        data = super(QuestionAnswerUpdate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['questionQuizList'] = QuestionFormSet(self.request.POST, instance=self.object)
+        else:
+            data['questionQuizList'] = QuestionFormSet(instance=self.object)
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        questionQuizList = context['questionQuizList']
+        with transaction.atomic():
+            self.object = form.save()
+
+            if questionQuizList.is_valid():
+                questionQuizList.instance = self.object
+                questionQuizList.save()
+        return super(QuestionAnswerUpdate, self).form_valid(form)
+
+
+class QuestionDelete(DeleteView):
+    model = Question
+    template_name = 'quiz/question_confirm_delete.html'
+
+    def get_success_url(self):
+        quiz = self.object.quiz.slug
+        return reverse_lazy('quizEdit',kwargs={'slug': quiz},)

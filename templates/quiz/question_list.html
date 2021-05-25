@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+    <h2>The list of questions for quiz `{{ quiz.title }}`: </h2>
+    <div>
+        <ul>
+            {% for question in questions %}
+                <div style="margin: 10px">
+                    • Question: {{ question.text }} | <a
+                            href="{% url 'questionUpdate' question.pk %}">
+                        <button class="btn-sm btn-info">Edit</button>
+                    </a>
+                        <a href="{% url 'questionDelete' question.pk %}">
+                            <button class="btn-sm btn-primary">Delete</button>
+                        </a>
+
+                </div>
+            {% empty %}
+                <li>No question yet.</li>
+            {% endfor %}
+
+        </ul>
+        <p>
+            <a href="{% url 'questionAdd' quiz.slug %}">
+                <button class="btn-sm btn-primary">Add new question</button>
+            </a>
+        </p>
+    </div>
+{% endblock %}

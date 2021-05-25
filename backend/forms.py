@@ -31,10 +31,36 @@ class ResultAssignmentForm(forms.ModelForm):
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['title','description','draft','teachers','coursePicture']
+        fields = ['title', 'description', 'draft', 'teachers', 'coursePicture']
+
 
 class SectionForm(forms.ModelForm):
     class Meta:
         model = Section
         fields = '__all__'
         exclude = ['slug']
+
+
+from django.forms import inlineformset_factory
+
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        exclude = ()
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        exclude = ()
+
+
+QuestionFormSet = inlineformset_factory(
+    Question, Answer, form=AnswerForm, extra=3)
+
+
+class QuizForm(forms.ModelForm):
+    class Meta:
+        model = Quiz
+        fields = '__all__'

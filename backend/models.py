@@ -91,7 +91,7 @@ class Section(models.Model):
     title = models.CharField(max_length=250, blank=True)
     description = models.TextField(blank=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    slug = models.SlugField(default='str')
+    slug = models.SlugField()
 
     def return_all_task(self):
         list_item = sorted(chain(self.assignment_set.all(), self.article_set.all(), self.quiz_set.all()),

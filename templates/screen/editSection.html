@@ -8,7 +8,7 @@
         <form class="col-md-6" style="margin: auto" method="post">
             <button class="btn-sm btn-primary"><a href="{% url 'addArticle' object.slug %}">Add article</a></button>
             <button class="btn-sm btn-primary"><a href="{% url 'createQuiz' object.slug %}">Add quiz</a></button>
-            <button class="btn-sm btn-primary">Add assignment</button>
+            <button class="btn-sm btn-primary"><a href="{% url 'addAssignment' object.slug %}">Add assignment</a></button>
             {% csrf_token %}
             <h3>Section: {{ object.title }}</h3>
 

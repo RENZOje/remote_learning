@@ -74,3 +74,10 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = '__all__'
         exclude = ['slug']
+
+
+class AssignmentForm(forms.ModelForm):
+    class Meta:
+        model = Assignment
+        fields = '__all__'
+        exclude = ['slug']

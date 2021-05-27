@@ -29,11 +29,15 @@ urlpatterns = [
     path('article/<slug:slug>/add/', addArticle, name='addArticle'),
     path('article/<slug:slug>/edit/', editArticle, name='editArticle'),
     path('article/<slug:slug>/delete/', deleteArticle, name='deleteArticle'),
+
+    path('task/<slug:slug>/add/', addAssignment, name='addAssignment'),
+    path('task/<slug:slug>/edit/', editAssignment, name='editAssignment'),
+    path('task/<slug:slug>/delete/', deleteAssignment, name='deleteAssignment'),
     path('task/<slug:slug>/', AssignmentDetailView.as_view(), name='taskDetail'),
 
+    path('quiz/<slug:slug>/', quizView, name='quizDetail'),  # quizDetailView
     path('quiz/<slug:slug>/create/', createQuiz, name='createQuiz'),
     path('quiz/<slug:slug>/start/', QuizDetailView.as_view(), name='quizDetailView'),
-    path('quiz/<slug:slug>/', quizView, name='quizDetail'),  # quizDetailView
     path('quiz/<slug:slug>/data/', quizDataView, name='quizDataDetail'),  # quizDataDetail
     path('quiz/<slug:slug>/save/', saveQuizView, name='saveQuizView'),
 

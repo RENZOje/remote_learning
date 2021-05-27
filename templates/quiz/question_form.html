@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block title %}{% endblock %}
 {% block content %}
-    <h2>Profile</h2>
+    <h2>Question:</h2>
     <hr>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin: 50px">
         <form action="" method="post">{% csrf_token %}
-            {{ form.as_p }}
+            {{ form|crispy }}
 
             <table class="table">
                 {{ questionQuizList.management_form }}
@@ -32,14 +32,14 @@
                                     {% endfor %}
                                 {% endif %}
                                 {{ field.errors.as_ul }}
-                                {{ field }}
+                                {{ field|as_crispy_field }}
                             </td>
                         {% endfor %}
                     </tr>
                 {% endfor %}
             </table>
-           <input type="submit" value="Save"/>
-{#            <a href="{% url 'quizEdit' question.slug %}">back to the list</a>#}
+            <input class="btn-sm btn-primary" type="submit" value="Save"/>
+            {#            <a href="{% url 'quizEdit' question.slug %}">back to the list</a>#}
         </form>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

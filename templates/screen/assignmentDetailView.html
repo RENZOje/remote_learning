@@ -2,6 +2,16 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+    {% if request.user.teacher in object.section.course.teachers.all %}
+        <div style="margin: 0 0 0 80%">
+            <a href="{% url 'editAssignment' object.slug %}">
+                <button class="btn-sm btn-danger">Edit Assignment</button>
+            </a>
+            <a onclick="return confirm('Are you sure you want to delete this assignment?');" href="{% url 'deleteAssignment' object.slug %}">
+                <button class="btn-sm btn-danger">Delete Assignment</button>
+            </a>
+        </div>
+    {% endif %}
     Title: {{ object.title }}
     <hr>
     Section: {{ object.section.title }}

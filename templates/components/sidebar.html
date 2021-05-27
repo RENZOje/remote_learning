@@ -1,49 +1,52 @@
+{% load static %}
 <div class="sidebar">
 
     <nav class="mainMenu">
         <ul class="menu">
             {% if request.user.teacher %}
-            <li>
-                <a class="smoothScroll" href="{% url 'courseAssignmentView' %}" title="What Is Luxury?"><i
-                        class="step icon-question size-24"></i><span class="text">Assignment review</span></a>
-            </li>
+                <li>
+                    <a class="smoothScroll" href="{% url 'courseAssignmentView' %}" title="Assignment review">
+                        <i style="font-size: 20px; display:inline; margin: 30px">
+                            <img style="display: inline"
+                                 src="{% static 'images/complaint.png' %}"
+                                 alt="globe"> Assignment review</i></a>
+                </li>
             {% endif %}
             <li>
-                <a class="smoothScroll" href="{% url 'courseList' %}" title="Course"><i
-                        class="icon-reciept-1 size-24"></i><span class="text">Course</span></a>
+                <a class="smoothScroll" href="{% url 'courseList' %}" title="Course"> <i
+                        style="font-size: 20px; display:inline; margin: 30px">
+                    <img style="display: inline"
+                         src="{% static 'images/online-course.png' %}"
+                         alt="globe"> Course </i></a>
             </li>
 
             <li>
                 <a class="smoothScroll" href="{% url 'courseListSubscribe' %}" title="My Course"><i
-                        class="icon-reciept-1 size-24"></i><span class="text">My Course</span></a>
+                        style="font-size: 20px; display:inline; margin: 30px">
+                    <img style="display: inline"
+                         src="{% static 'images/audio-course.png' %}"
+                         alt="globe"> My Course </i></a>
             </li>
             <li>
-                <a class="smoothScroll" href="{% url 'profile' %}" title="Testimonial"><i class="bi bi-person"></i><span
-                        class="text">Profile</span></a>
+                <a class="smoothScroll" href="{% url 'profile' %}" title="Profile"><i
+                        style="font-size: 20px; display:inline; margin: 30px">
+                    <img style="display: inline"
+                         src="{% static 'images/student.png' %}"
+                         alt="globe"> Profile</i></a>
             </li>
             <li>
-                <a class="smoothScroll" href="#featured-part" title="Top Featured"><i
-                        class="step icon-bulleted-list size-24"></i><span class="text">Top Featured</span></a>
+                <a class="smoothScroll" href="{% url 'loginStudent' %}" title="Login"><i
+                        style="font-size: 20px; display:inline; margin: 30px">
+                    <img style="display: inline"
+                         src="{% static 'images/enter.png' %}"
+                         alt="globe"> Login</i></a>
             </li>
             <li>
-                <a class="smoothScroll" href="#pricing-part" title="Pricing"><i
-                        class="step icon-cogs size-24"></i><span class="text">Pricing</span></a>
-            </li>
-            <li>
-                <a class="smoothScroll" href="#membership-part" title="Get a home"><i
-                        class="step icon-door-key size-24"></i><span class="text">Get a home</span></a>
-            </li>
-            <li>
-                <a class="smoothScroll" href="#tips-part" title="Important Tips"><i
-                        class="step icon-light-bulb size-24"></i><span class="text">Important Tips</span></a>
-            </li>
-            <li>
-                <a class="smoothScroll" href="{% url 'loginStudent' %}" title="Upcoming Events"><i
-                        class="step icon-calendar-1 size-24 size"></i><span class="text">Login</span></a>
-            </li>
-            <li>
-                <a class="smoothScroll" href="{% url 'logoutStudent' %}" title="Contact Form"><i
-                        class="step icon-envelope-1 size-34"></i><span class="text">Logout</span></a>
+                <a class="smoothScroll" href="{% url 'logoutStudent' %}" title="Logout"><i
+                        style="font-size: 20px; display:inline; margin: 30px">
+                    <img style="display: inline"
+                         src="{% static 'images/logout.png' %}"
+                         alt="globe"> Logout</i></a>
             </li>
         </ul>
     </nav>
@@ -51,7 +54,11 @@
     <nav class="backToTop">
         <ul class="backToTop-menu">
             <li><a class="smoothScroll" href="#section-intro" title="to the top"><i
-                    class="fa fa-chevron-up"></i><span class="text">Back to top</span></a></li>
+                        style="font-size: 20px; display:inline; margin: 30px">
+                    <img style="display: inline"
+                         src="{% static 'images/up.png' %}"
+                         alt="globe"> Back to top</i></a>
+            </li>
         </ul>
     </nav>
 

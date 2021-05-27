@@ -6,7 +6,7 @@
             <a href="{% url 'editArticle' object.slug %}">
                 <button class="btn-sm btn-danger">Edit Article</button>
             </a>
-            <a href="{% url 'deleteArticle' object.slug %}">
+            <a onclick="return confirm('Are you sure you want to delete this article    ?');" href="{% url 'deleteArticle' object.slug %}">
                 <button class="btn-sm btn-danger">Delete Article</button>
             </a>
         </div>

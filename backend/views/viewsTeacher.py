@@ -99,7 +99,7 @@ class UploadAssignmentView(DetailView):
             grade.amountPoint = float(round(grade.amountPoint, 2)) + float(round(form.cleaned_data['score'], 2))
             grade.save()
 
-            return redirect('/')
+            return redirect('UploadAnswerTaskView', slug=uploadAnswer.slug)
 
 
 class courseAssignmentView(ListView):
@@ -119,7 +119,7 @@ def addArticle(request, slug):
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('courseList')
+            return redirect('courseDetail', slug=section.course.slug)
 
     context = {'form': form}
     return render(request, 'screen/addArticle.html', context=context)
@@ -135,7 +135,7 @@ def editArticle(request, slug):
             form.save()
             return redirect('articleDetail', slug=article.slug)
 
-    context = {'form': form, 'article': article}
+    context = {'form': form, 'object': article}
     return render(request, 'screen/editArticle.html', context=context)
 
 

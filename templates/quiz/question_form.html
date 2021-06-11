@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block title %}{% endblock %}
@@ -46,7 +46,7 @@
     <script src="{% static 'js/formset.js' %}"></script>
     <script type="text/javascript">
         $('.formset_row').formset({
-            addText: 'Add another question',
+            addText: 'Add another answer',
             deleteText: 'Remove',
             prefix: 'questionQuizList_set'
         });

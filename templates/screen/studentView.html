@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
     <style>
-    .profile-pic{
-        max-width: 200px;
-        max-height: 200px;
-        margin: 0 auto;
-        border-radius: 50%;
-    }
+        .profile-pic {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
     </style>
     <div class="container">
         <div class="row gutters">
@@ -16,9 +16,12 @@
                     <div class="card_profile-body">
                         <div class="account-settings">
                             <div class="user-profile">
-                                <div class="user-avatar">
-                                    <img src="{{ object.profilePicture.url }}" class="profile-pic" alt="{{ object.firstName }}{{ object.lastName }}">
-                                </div>
+                                {% if object.profilePicture %}
+                                    <div class="user-avatar">
+                                        <img src="{{ object.profilePicture.url }}" class="profile-pic"
+                                             alt="{{ object.firstName }}{{ object.lastName }}">
+                                    </div>
+                                {% endif %}
                                 <h5 class="user-name">{{ object.firstName }} {% if object.middleName %}
                                     {{ object.middleName }}
                                 {% endif %}  {{ object.lastName }}</h5>

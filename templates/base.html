@@ -38,9 +38,9 @@
         <!-- Logo -->
         <a class="headerLogo smoothScroll" href="{% url 'homeView' %}">
             <i style="font-size: 20px; display:inline; ">
-                <img style="display: inline"
+                <img style="display: inline; margin: 0 20px 0 0"
                      src="{% static 'images/globe-grid.png' %}"
-                     alt="globe">   iLearning</i>
+                     alt="globe"> iLearning</i>
         </a>
     </header>
 
@@ -76,42 +76,13 @@
                 <div class="container-template">
 
                     {% block content %}
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
-                        <div>
-                            <h1>Main</h1>
-                        </div>
+                        {% if not request.user.is_authenticated %}
+                            <div class="container">
+                                <h2>Hello, guest!</h2>
+                                <h2>Welcome to the iLearning.</h2>
+                                <h4>If you want to try this website, you have <a class="btn-sm btn-primary" href="{% url 'loginStudent' %}">Log in</a>.</h4>
+                            </div>
+                        {% endif %}
                     {% endblock %}
 
                 </div>

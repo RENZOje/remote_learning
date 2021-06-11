@@ -3,12 +3,12 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <style>
-    .profile-pic{
-        max-width: 200px;
-        max-height: 200px;
-        margin: 0 auto;
-        border-radius: 50%;
-    }
+        .profile-pic {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
     </style>
     <div class="container">
         <div class="row gutters">
@@ -17,11 +17,17 @@
                     <div class="card_profile-body">
                         <div class="account-settings">
                             <div class="user-profile">
-                                <div class="user-avatar" style="margin: auto;">
-                                    <img src="{{ request.user.student.profilePicture.url }}" class="profile-pic" alt="{{ request.user.student.firstName }}{{ request.user.student.lastName }}">
+                                {% if request.user.student.profilePicture %}
+                                    <div class="user-avatar" style="margin: auto;">
+                                        <img src="{{ request.user.student.profilePicture.url }}" class="profile-pic"
+                                             alt="
+                                                     {{ request.user.student.firstName }}{{ request.user.student.lastName }}">
 
-                                </div>
-                                <h5 class="user-name" style="margin: 10px">{{ request.user.student.firstName }} {{ request.user.student.lastName }}</h5>
+                                    </div>
+                                {% endif %}
+
+                                <h5 class="user-name"
+                                    style="margin: 10px">{{ request.user.student.firstName }} {{ request.user.student.lastName }}</h5>
                                 <h6 class="user-email">{{ request.user.student.email }} </h6>
                             </div>
                             <div class="about">

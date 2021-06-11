@@ -18,7 +18,7 @@
     <hr>
     Description: {{ object.description }}
     <hr>
-    Pdf: <a href="{{ object.pdf_task.url }}" target="_blank">Task</a>
+    Pdf: <a class="btn-sm btn-primary" href="{{ object.pdf_task.url }}" target="_blank">Task</a>
     {% if not answered %}
         <h2>Submit answer</h2>
         <form method="post" enctype="multipart/form-data">
@@ -39,7 +39,7 @@
 
             {% endfor %}
 
-            <button type="submit" class="btn btn-primary">Submit answer</button>
+            <button type="submit" class="btn-sm btn-primary">Submit answer</button>
         </form>
 
     {% else %}

@@ -47,7 +47,6 @@ def quizDataView(request, slug):
 
 
 def saveQuizView(request, slug):
-    print(request.POST)
     if request.is_ajax():
         questions = []
         data = request.POST
